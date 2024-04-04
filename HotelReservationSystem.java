@@ -49,4 +49,25 @@ public class HotelReservationSystem extends JFrame {
 	    }
 
 
+private void submitBooking() {
+    String name = nameField.getText();
+    String roomType = (String) roomTypeComboBox.getSelectedItem();
+    String arrivalDate = arrivalField.getText();
+    String departureDate = departureField.getText();
+
+    // Perform booking logic here (e.g., calculate price, save to database, etc.)
+    // You can add the logic for calculating the total price based on room type, dates, etc.
+
+    // For now, we'll just display the input data in the console
+    System.out.println("Customer Name: " + name);
+    System.out.println("Room Type: " + roomType);
+    System.out.println("Arrival Date: " + arrivalDate);
+    System.out.println("Departure Date: " + departureDate);
 }
+
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> new HotelReservationSystem());
+}
+
+}
+
