@@ -48,26 +48,36 @@ public class HotelReservationSystem extends JFrame {
 	        setVisible(true);
 	    }
 
+	     private void submitBooking() {
+	    	    String customerName = nameField.getText();
+	    	    String roomType = (String) roomTypeComboBox.getSelectedItem();
+	    	    String arrivalDate = arrivalField.getText();
+	    	    String departureDate = departureField.getText();
+	    	 
+	    	    // Validate input
+	    	    if (customerName.isEmpty() || roomType.isEmpty() || arrivalDate.isEmpty() || departureDate.isEmpty()) {
+	    	        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	        return;
+	    	    }
 
-private void submitBooking() {
-    String name = nameField.getText();
-    String roomType = (String) roomTypeComboBox.getSelectedItem();
-    String arrivalDate = arrivalField.getText();
-    String departureDate = departureField.getText();
+	    	    // Here you would typically check room availability and store the booking
+	    	    // For demonstration purposes, let's just print the booking details
+	    	    System.out.println("Booking submitted:");
+	    	    System.out.println("Customer Name: " + customerName);
+	    	    System.out.println("Room Type: " + roomType);
+	    	    System.out.println("Arrival Date: " + arrivalDate);
+	    	    System.out.println("Departure Date: " + departureDate);
 
-    // Perform booking logic here (e.g., calculate price, save to database, etc.)
-    // You can add the logic for calculating the total price based on room type, dates, etc.
+	    	    // Optionally, clear the fields after submission
+	    	    nameField.setText("");
+	    	    roomTypeComboBox.setSelectedIndex(0);
+	    	    arrivalField.setText("");
+	    	    departureField.setText("");
+	     }
+	     
+	     public static void main(String[] args) {
+	    	    SwingUtilities.invokeLater(() -> new HotelReservationSystem());
+	    	}
 
-    // For now, we'll just display the input data in the console
-    System.out.println("Customer Name: " + name);
-    System.out.println("Room Type: " + roomType);
-    System.out.println("Arrival Date: " + arrivalDate);
-    System.out.println("Departure Date: " + departureDate);
+
 }
-
-public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> new HotelReservationSystem());
-}
-
-}
-
