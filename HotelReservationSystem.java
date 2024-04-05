@@ -1,4 +1,7 @@
 package HotelDatabase;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import javax.swing.*;
 
 public class HotelReservationSystem extends JFrame {
@@ -10,12 +13,14 @@ public class HotelReservationSystem extends JFrame {
 	    private JTextField nameField, arrivalField, departureField;
 	    private JComboBox<String> roomTypeComboBox;
 	    private JButton submitButton;
+	    private Hotel hotel;
 
 	     public HotelReservationSystem() {
 	        setTitle("ABC Hotel Booking System");
 	        setSize(400, 300);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setLocationRelativeTo(null);
+	        hotel = new Hotel(10, 5, 3); // Example: 10 regular rooms, 5 deluxe rooms, 3 junior suites
 
 	        CustomerNameLabel = new JLabel("Customer Name:");
 	        nameField = new JTextField(20);
@@ -58,6 +63,26 @@ public class HotelReservationSystem extends JFrame {
 	    	    if (customerName.isEmpty() || roomType.isEmpty() || arrivalDate.isEmpty() || departureDate.isEmpty()) {
 	    	        JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
 	    	        return;
+	    	    }
+	    	    
+	    	    // Parse dates in yyyy-MM-dd
+	    	    LocalDate arrival = LocalDate.parse(arrivalDate);
+	    	    LocalDate departure = LocalDate.parse(departureDate);
+	    	    long numberOfNights = ChronoUnit.DAYS.between(arrival, departure);
+	    	    
+	    	    // Attempt to make a reservation
+	    	    Room room = hotel.makeReservation(roomType, arrivalDate, departureDate);
+	    	    if (room != null) {
+	    	        double totalCharge = room.calculateTotalCharge((int) numberOfNights);
+	    	        JOptionPane.showMessageDialog(this, "Reservation successful!\n" +
+	    	                "Customer Name: " + customerName + "\n" +
+	    	                "Room Type: " + roomType + "\n" +
+	    	                "Arrival Date: " + arrivalDate + "\n" +
+	    	                "Departure Date: " + departureDate + "\n" +
+	    	                "Room Number: " + room.getRoomNumber() + "\n" +
+	    	                "Total Charge: $" + totalCharge);
+	    	    } else {
+	    	        JOptionPane.showMessageDialog(this, "No rooms available for the selected dates.", "Error", JOptionPane.ERROR_MESSAGE);
 	    	    }
 
 	    	    // Here you would typically check room availability and store the booking
