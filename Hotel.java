@@ -21,17 +21,28 @@ public class Hotel {
 
     public Room makeReservation(String roomType, String arrivalDate, String departureDate) {
         for (Room room : rooms) {
-            if (room.getPricePerNight() == 200 && roomType.equals("Regular Room") && room.isAvailable()) {
-                room.setAvailable(false);
-                return room;
-            } else if (room.getPricePerNight() == 300 && roomType.equals("Deluxe Room") && room.isAvailable()) {
-                room.setAvailable(false);
-                return room;
-            } else if (room.getPricePerNight() == 350 && roomType.equals("Junior Suite") && room.isAvailable()) {
+            // Check if the room type matches and the room is available
+            if (room.isAvailable() && matchesRoomType(room, roomType)) {
+                // Mark the room as unavailable
                 room.setAvailable(false);
                 return room;
             }
         }
         return null; // Indicates no room available
     }
+
+    private boolean matchesRoomType(Room room, String roomType) {
+        // Implement logic to match room type with room object
+        // This could involve checking the room's price per night or another identifier
+        // For example:
+        if (room instanceof RegularRoom && roomType.equals("Regular Room")) {
+            return true;
+        } else if (room instanceof DeluxeRoom && roomType.equals("Deluxe Room")) {
+            return true;
+        } else if (room instanceof JuniorSuite && roomType.equals("Junior Suite")) {
+            return true;
+        }
+        return false;
+    }
+
 }

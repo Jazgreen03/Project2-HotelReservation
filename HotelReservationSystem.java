@@ -99,10 +99,15 @@ public class HotelReservationSystem extends JFrame {
 	    	    arrivalField.setText("");
 	    	    departureField.setText("");
 	     }
-	     
 	     public static void main(String[] args) {
-	    	    SwingUtilities.invokeLater(() -> new HotelReservationSystem());
-	    	}
+	    	Hotel hotel = new Hotel(10, 5, 3); // Create a hotel with 10 regular rooms, 5 deluxe rooms, and 3 junior suites
 
-
+ 	        // Example: Check if a Regular Room is available
+ 	        Room availableRoom = hotel.makeReservation("Regular Room", "2024-05-15", "2024-05-20");
+ 	        if (availableRoom != null) {
+ 	            System.out.println("Reservation successful for a Regular Room.");
+ 	        } else {
+ 	            System.out.println("No Regular Rooms available for the selected dates.");
+ 	        }
+	     }
 }
