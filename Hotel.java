@@ -1,3 +1,4 @@
+
 package HotelDatabase;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ public class Hotel {
 
     public Room makeReservation(String roomType, String arrivalDate, String departureDate) {
         for (Room room : rooms) {
+        	System.out.print(room.isAvailable());
+        	System.out.print(matchesRoomType(room, roomType));
             // Check if the room type matches and the room is available
-            if (room.isAvailable() && matchesRoomType(room, roomType)) {
+            if (room.isAvailable()) {
                 // Mark the room as unavailable
                 room.setAvailable(false);
                 return room;
